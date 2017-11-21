@@ -25,7 +25,8 @@ public class ReadWrite {
     
     public static void ReadFile() throws IOException
     {
-        Path newFile= Paths.get("SortedNames.txt");
+        
+        PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("SortedNames.txt", true)));
         ArrayList<String> sorted = new  ArrayList<>();
         try(BufferedReader br = new BufferedReader (new FileReader("BoyNames.txt")))
             {
@@ -34,6 +35,9 @@ public class ReadWrite {
                 
                 String line = br.readLine();
                 sorted.add(line);
+                
+                
+                
                 }
                 
                 
@@ -46,14 +50,19 @@ public class ReadWrite {
              System.out.println("Error: " + e.getMessage());       
         }
         Collections.sort(sorted);
-       
         
-        try(PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("SortedNames.txt", true))))
+        
+        for(String name:sorted)
         {
-             
-            writer.println(sorted);
-            writer.close();
+            
+            writer.println(name);
+        
         }
+            writer.close();
+        
+             
+            
+        
         
         
     }
