@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package readwrite;
-import java.io.IOException;
-import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Collections; 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 /**
  *
  * @author jpiasecki
@@ -16,19 +19,25 @@ public class ReadWrite {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ReadFile();
     }
     
-    private static String ReadFile()
+    public static void ReadFile() throws IOException
     {
-        
+        Path newFile= Paths.get("SortedNames.txt");
         ArrayList<String> sorted = new  ArrayList<>();
         try(BufferedReader br = new BufferedReader (new FileReader("BoyNames.txt")))
             {
+                for(int i=0; i<200; i++)
+                {
                 
                 String line = br.readLine();
-                sorted.add(line+'\n');
+                sorted.add(line);
+                }
+                
+                
+                
             }
             
         
@@ -36,6 +45,16 @@ public class ReadWrite {
         {
              System.out.println("Error: " + e.getMessage());       
         }
+        Collections.sort(sorted);
+       
+        
+        try(PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("SortedNames.txt", true))))
+        {
+             
+            writer.println(sorted);
+            writer.close();
+        }
+        
         
     }
     
